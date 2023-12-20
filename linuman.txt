@@ -1,0 +1,331 @@
+.Sh File managment
+ 
+./ 				- zobrazeni aktualni složky
+.br 
+mv				- přejmenovani nebo přesunutí souboru
+.br 
+mkdir				- vytvoření složky
+.br
+ctrl + c 			- ukončení procesu(pouze proces na popředí)
+.br
+ctrl + z 			- pozastavení procesu
+.br
+cpuls 10 			- vytvořeno na zatížení procerosu
+.br
+fg %(cislo ulohy) 		- vrácení procesu na popředí
+.br
+bg %(cislo ulohy) 		- vracení procesu na pozadí
+.br
+jobs 				- vypíše všechny běžící ulohy
+.br
+& 				- toto se dává za proces, hodí ho to automaticky na pozadí
+.br
+kill (PID) 			- ukončí proces na pozadí, muže se přídat před PID -15
+.br
+kill -9 (PID) 			- brutální ukočení
+.br
+ps 				- slouží pro zjištění PID(autentifikace daného procesu)
+.br
+ps aux 				- vypíše všechny běžící procesy v počítači i skryté
+.br
+ps aux |more 			- vypíše po stránkách              |-píše se Altgr + W
+.br
+top 				- mění se v čase
+.br
+k 				- když zmáčnkneš v topu mužeš zabít
+.br
+q 				- vyskočí se z top a dalších
+.br
+-20 až 19 			- značí se ohleduplnost, čím nižší tím větší priorita(pouze root, student jen zvyšuje)
+.br
+renice (hodnota) (PID) 		- přepsání priority
+.br
+renice (hodnota) -u studen 	- všem procesům, kterých je vlastník student upraví prioritu
+.br
+nice -n -5 cpuls 200 		- udávání priority již při spuštění
+.br
+cat			ls 	- podívání na txt soubor
+.br
+touch (název) 			- vytvoření souboru
+.br
+su (jméno uživatele)		- dočasné přihlášení za jiného uživatele
+.br
+d|rwx|rwx|rwx 	-první trojice vlastníka/user (u)
+.br
+        -druhá je skupina/group (g)
+.br
+		-třetí jsou ostatní/others (o)
+.br
+d				- složka
+.br
+r				- právo pro čtení/read
+.br
+w				- právo pro zapisování/write
+.br
+x				- právo pro spouštění
+.br
+				- pokud je zde - tak není právo
+
+
+.Sh 1. Symbolicky
+.br
+	chmod u + r		- přidáno právo vlastníkovi pro čtení
+.br
+	chmod g - w		- odeberu právo skupinám pro zápis
+.br
+	chmod a - x		- odebráno všem právo pro spuštění
+
+.Sh 2.Oktanově
+.br
+	chown student:users soubor1	- změnění vlastníka pro soubor
+.br
+	chgrp 			- změna skupiny
+.br
+	newgrp			- dočasně se příhlasit pro skupinu
+
+.br
+cp etc/passwd ./hesla		- zkopírování a přejmenování složky
+.br
+ln (odkud) (název_odkaz)	- tvrdé odkazy (nelze na složku a neexistující soubor)
+
+.Sh A) Práce s textem
+.br
+
+|sort				- setřídění výpisu
+.br
+|head				- prvních 10 z výpisu
+.br
+|tail				- posledních 10 z výpisu
+.br
+cat -n				- očísluje řádky
+.br
+ls -al |cat -n |head -5		- vypíše, očísluje řádky a vypíše prvních 5
+.br
+uniq				- vypíše jak cat, ale vyhazuje dublicity
+.br
+diff (soubor) (soubor)		- rozdíl mezi soubory
+.br
+grep (výraz co hledáš) (umistění)	- zachycení výrazu
+
+
+.br
+find (kde) -name (co hledám, 'podle názvu')	-najde mi co potřebuji(platí pro složky)
+.br
+find (kde) -size +10M			-hledá soubory ve velikosti 10Mb
+.br
+find (kde) -size +200K -size -2M	-hledá soubory mezi 200Kb a 2Mb
+.br
+find (kde) -atime  +365		- hledá soubory na základě dnů
+.br
+find (kde) -mmin -5		- hledá soubory mladší než 5min
+.br
+alias				- lze tímto příkazem vytvořit vlastní zkratku
+
+.Sh B) Komprimace (přípona .gz)
+
+.br
+gzip (-v)			- komprimuje soubor a původní smaže (vypise, co udelal)
+.br
+gunzip (-v)			- soubor s .gz rozbalí a smaže (vypise, co udelal)
+.br
+bzip2				- to samé jako gzip
+.br
+bunzip2				- samé jako gunzip
+
+.Sh C)Archivace (přípona .tar)
+
+.br
+tar c				- zabalit
+.br
+    x				- rozbalit
+.br
+    t				- ukáže, co je v souboru
+.br
+    f				- název souboru
+.br
+tar cf zaloha.tar soubor*	- zabalí všechny soubory začínající na soubor do taru
+.br
+(tar zachovává práva i vlastníky)
+.br
+
+tar czf archiv.tar.gz /etc	- odstraní / u etc kvůli bezpečnosti
+
+.br
+.Sh D) Systémové
+
+.br
+du				- ukáže velikost složky i s podsložkami
+.br
+du -h(s)			- vypíše využití disku(s je pouze pro složku bez podsložek)
+.br
+df -h				- ukáže kolik mám volného místa
+.br
+free -h(m)			- vztahuje se na paměť ram
+.br
+uptime				- ukáže aktuální čas a dobu spuštění počítače, uživatele a vytížení
+.br
+whoami				- napíše kdo jsem(za koho přihlášeny)
+.br
+who am i			- samé jako whoami jen podrobnější
+.br
+who				- vypíše všechny uživatele
+.br
+w				- ukáže informace o nečinosti, čas přihlášení atd.
+.br
+users				- přihlášené uživatele jen s mezerou
+.br
+last				- informace o přihlášeni/odhlášení a co tam dělal
+.br
+id				- zjistíme, jakých skupin jsem členem
+.br
+which (název příkazu)		- napíše, kde je daný příkaz uložený
+.br
+whereis				- to co which, ale ukáže i manuál
+
+.br
+loadkeys us			- přepne na anglickou klavesnici
+.br
+sh ./(název skriptu)		- vypíše jej
+.br
+$(číslo)			- přistupuji k parametrům
+.br
+$#				- počet parametrů
+.br
+$0				- jméno příkazu
+.br
+$@				- výpis parametru
+.br
+$$				- PID procesu
+.br
+#!/bin/bash			- 
+.br
+#				- poznámka
+.br
+set				- 
+
+.br
+test($?)			- pro testování(splněna=1 nesplněna=0)
+.br
+if (podmínka)			- pro podmínky
+.br
+then
+.br
+else
+.br
+fi
+
+.br
+test -d $1 = [ -d $1 ]		- to samé
+
+.br
+shift				- posouvá parametry doleva
+
+.br
+while(podmínka)			- provádí příkazy opakovaně, dokud platí podmínka
+.br
+do
+.br
+done
+
+.br
+until(podmínka)			- provádí příkazy opakovaně, dokud neplatí podmínka(až začne platit přestane)
+.br
+do
+.br
+done
+
+.br
+for (proměnna) in (množina)	- provádí se jen podle počtu uvedeném v množině(pokud dám pouze i, tak použije jako proměnnou parametry při spuštění)
+.br
+				- dá se napsat jako 1 2 3 4 5 nebo { 1..5 }
+.br
+do
+.br
+done
+
+.br
+case hodnota in
+.br
+vzorek1) příkazy ;;
+.br
+vzorek2) příkazy ;;
+.br
+...
+.br
+esac
+.br
+
+.br
+exec				- spuštění příkazu bez vytvoření podřízeného procesu a k přesměrování standardního vstupu
+
+.br
+trap
+
+.br
+read				- 
+
+.br
+cfdisk				- přístup k disku pro oddíly
+.br
+cfdisk /dev/sda(1-4)		- používá se pro výběr, pokud máme více disků (primární)(rozšířený)
+	      b(5-...)
+	      c
+
+.br
+mkfs -t fstype /dev/sdb1	- formátování disku
+.br
+.br
+	ext1
+.br
+	ext2
+.br
+	ext3
+.br
+	ext4
+
+.br
+mkdir /media/disk1 ....			- vytvoření složek pro připojení disku
+.br
+mount -t ext3 /dev/sda1 /media/disk1	- připojení disku(funguje jen dokud pc nerestartujeme)
+.br
+umount /dev/sda5			- odpojení disku
+.br
+ls /dev/disk/by-uuid/			- zjištění uuid
+
+
+.Sh Plánovač
+
+.br
+crontab -e				- sekce pro plánování úloh§
+.br
+MIN HOUR DAY MONTH DAYOFWEEK		- postupný zápis
+.br
+34 12 * * * date > vypis_datum		- vypiše a uloží datum do vypis_datum
+.br
+DAYOFWEEk				- 0-Neděle  6-Sobota
+
+.br
+* 7 *  * 1 date >> vypis.txt		- vypíše každé pondělí v 7 ráno datum do txt
+.br
+* 7 *  * 1 users >> vypis.txt		- zároveň se do saméto napíšou i uživatelé, kteří jsou online
+.br
+0 */2 * * * date			- vypíše se každé 2 hodiny datum
+.br
+* 12 1-7 * 3 sirena			- každou první středu v měsíci ve 12 budou sirény
+
+.br
+apt-get update				- vypíše balíky, které by chtěl updatnout
+.br
+apt-get upgrade				- aktualizuje balíky
+
+.br
+apt-get install joe			- nainstaluje joe editora
+.br
+apt-get install mc			- nainstaluje midnight commander
+.br
+mc					- pro spuštění
+
+cp teste /usr/share/man/man1/teste.1
+gzip /usr/share/man/man1/teste.1
+man teste
+
